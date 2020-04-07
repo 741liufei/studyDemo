@@ -3,6 +3,7 @@ package test.sort;
 import java.util.Arrays;
 
 /**
+ * 归并排序
  * Created by liufei on 2018/4/17.
  */
 public class MergeSort {
