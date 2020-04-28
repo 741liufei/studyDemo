@@ -1,9 +1,10 @@
-package dubbo.impl;
+package test.spi;
 
 /**
  * 动物行为 将动物方法抽取到接口中
  * Created by liufei on 2018/3/29.
  */
+//@SPI
 public interface AnimalAction {
 
     public void eat();

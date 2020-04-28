@@ -1,5 +1,7 @@
 package dubbo.impl;
 
+import test.spi.AnimalAction;
+
 /**
  * Created by liufei on 2018/3/29.
  */
