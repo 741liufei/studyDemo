@@ -1,9 +1,5 @@
 package test.sort;
 
-import com.sun.corba.se.impl.orbutil.StackImpl;
-
-import java.util.Arrays;
-
 /**
  * 二分法查找
  * Created by liufei on 2018/4/19.
@@ -16,13 +12,15 @@ public class BinarySearchTest {
 //        int mid = search(nums,search);
 //        System.out.print("数组"+ Arrays.toString(nums)+"中"+search+"数字的位置在："+(mid+1));
         int count = searchRepeatNum(nums,search);
-        System.out.print("数组"+ Arrays.toString(nums)+"中"+search+"数字出现的次数为："+(count));
+//        System.out.print("数组"+ Arrays.toString(nums)+"中"+search+"数字出现的次数为："+(count));
+        int [] nums = {1,3,5,6,8};
+        int index = getPos(nums,5);
+        System.out.println(index);
     }
 
     public static int search(int[] nums,int search){
         int begin =0;
         int end = nums.length-1;
-        int count =0;
         while (begin<end){
             //取中间数
             int mid = (begin+end)/2;
@@ -34,9 +32,24 @@ public class BinarySearchTest {
                 begin = mid+1;
             }
         }
-        return count;
+        return -1;
     }
-
+    public static int getPos(int[] A, int val) {
+        int begin =0;
+        int end = nums.length- 1;
+        while(begin <= end ){
+            int mid = (begin + end)/2;
+            int midNum = A[mid];
+            if(val < midNum){
+                end = mid -1;
+            }else if (val > midNum){
+                begin = mid +1;
+            }else{
+                return mid;
+            }
+        }
+        return -1;
+    }
 
     public static int searchRepeatNum(int[] nums ,int search){
         int begin =0;
