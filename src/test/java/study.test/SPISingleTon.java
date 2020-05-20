@@ -10,7 +10,7 @@ import org.junit.Test;
  * @description:测试javaSPI机制
  * @date 2020/4/20 10:59
  **/
-public class SPITest {
+public class SPISingleTon {
 
     @Test
     public  void Test(){

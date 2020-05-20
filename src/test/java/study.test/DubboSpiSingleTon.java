@@ -9,7 +9,7 @@ import test.spi.AnimalAction;
  * @description:
  * @date 2020/4/20 11:16
  **/
-public class DubboSpiTest {
+public class DubboSpiSingleTon {
 
     @Test
     public void DubboSpiTest(){

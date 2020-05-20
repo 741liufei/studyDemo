@@ -1,5 +1,9 @@
 package test.linkedlist;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * Created by liufei on 2018/4/24.
  */
@@ -109,20 +113,32 @@ public class TestLinkedList {
 
 
     public static void main(String[] args){
-        Node node = new Node(2);
-        addLink(node);
-        node = new Node(3);
-        addLink(node);
-        node = new Node(4);
-        insertByIndex(1,node);
-//        deleteNode(1);
-//        Node newNode = null;
-//        Node next = node.next;
-//        node.next = newNode;
-//        newNode = node;
-//        node = next;
-
-        System.out.println();
+//        Node node = new Node(2);
+//        addLink(node);
+//        node = new Node(3);
+//        addLink(node);
+//        node = new Node(4);
+//        insertByIndex(1,node);
+////        deleteNode(1);
+////        Node newNode = null;
+////        Node next = node.next;
+////        node.next = newNode;
+////        newNode = node;
+////        node = next;
+//
+//        System.out.println();
+        Map<String,String> map = new HashMap<>();
+        map.put("1","1");
+        map.put("2","2");
+        Map<String,String> map2 = new HashMap<>();
+        map2.put("1","11");
+        map2.put("3","2");
+        map.putAll(map2);
+        Iterator<Map.Entry<String,String>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String,String> entry = iterator.next();
+            System.out.println(entry.getKey()+entry.getValue());
+        }
     }
 
 }
