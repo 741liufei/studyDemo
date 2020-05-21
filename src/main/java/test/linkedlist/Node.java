@@ -9,9 +9,17 @@ public class Node {
     public int data;
     //存放结点的变量,默认为null
     public Node next;
+    private static int val;
 
     //构造方法，在构造时就能够给data赋值
     public Node(int data){
         this.data = data;
+    }
+
+    public void toPrint(Node node){
+        do {
+            System.out.println(node.data);
+            node = node.next;
+        }while (node!=null);
     }
 }

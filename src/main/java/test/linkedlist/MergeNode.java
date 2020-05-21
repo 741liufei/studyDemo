@@ -12,13 +12,13 @@ public class MergeNode {
         Node n2 = new Node(5);
         Node n3 = new Node(3);
         Node n4 = new Node(4);
+
         n1.next = n2;
         n3.next = n4;
-        Node newNode = mergeNode(n1,n3);
-
+//        Node newNode = mergeNode(n1,n3);
         Node newNode2 = mergeByRecursion(n1,n3);
-        System.out.println(newNode);
-
+        System.out.println(newNode2);
+        Integer a = new Integer(11);
     }
 
     public static Node mergeByRecursion(Node list1,Node list2){
@@ -28,13 +28,17 @@ public class MergeNode {
         if(list2 == null){
             return list1;
         }
-        if(list1.data <= list2.data){
-            list1.next = mergeByRecursion(list1.next,list2);
-            return list1;
+        Node head = null;
+        if(list1.data > list2.data){
+            //把较小的结点给头结点
+            head = list2;
+            //继续递归小的那个节点
+            head.next = mergeByRecursion(list1,list2.next);
         }else {
-            list2.next = mergeByRecursion(list2.next,list1);
-            return list2;
+            head = list1;
+            head.next = mergeByRecursion(list1.next,list2);
         }
+        return head;
     }
 
     /**

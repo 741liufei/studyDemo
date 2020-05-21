@@ -1,7 +1,9 @@
 package test.linkedlist;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +17,7 @@ public class TestLinkedList {
      * @param linkedList
      */
     public static void addLink(Node linkedList){
+        List a = new ArrayList<>();
         Node temp = head;
         //遍历链表所有的结点，找到最后一个结点
         while (temp.next!=null){
