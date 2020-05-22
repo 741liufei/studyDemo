@@ -41,7 +41,7 @@ public class ProducerConsumer {
                         }else {
                             queue.add(pcData);
                         }
-                        Thread.sleep(100);
+                        Thread.sleep(1000);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -76,7 +76,7 @@ public class ProducerConsumer {
                     if(data !=null){
                         System.out.println(Thread.currentThread().getId()+"消费了：data="+data.getPCData());
                     }
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -97,11 +97,11 @@ public class ProducerConsumer {
 
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(10,10,1, TimeUnit.SECONDS,new LinkedBlockingQueue(1));
         poolExecutor.execute(p1);
-        poolExecutor.execute(p2);
-        poolExecutor.execute(p3);
+//        poolExecutor.execute(p2);
+//        poolExecutor.execute(p3);
         poolExecutor.execute(c1);
-        poolExecutor.execute(c2);
-        poolExecutor.execute(c3);
+//        poolExecutor.execute(c2);
+//        poolExecutor.execute(c3);
 
 
 
