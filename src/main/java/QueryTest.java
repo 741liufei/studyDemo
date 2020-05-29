@@ -6,9 +6,7 @@
 public class QueryTest {
 
     public static void main(String[]args){
-        int []nums ={1,2,3,3,4,5,6};
-        int [] result = searchNumNew(nums,3);
-        System.out.println("index="+result[0]+"count="+result[1]);
+        String a ="11";
 
     }
 

@@ -3,9 +3,6 @@ package test.producer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -39,16 +36,17 @@ public class PCByCondition {
                         Random random = new Random();
                         int temp = random.nextInt(10);
                         try {
-                            if(queue.size()>=size){
-                                //通知消费者消费
-                                empty.signalAll();
+
+                            if (queue.size()>=size){
+                                System.out.println("生产者线程："+Thread.currentThread().getName()+"被挂起，当前队列数量:"+queue.size());
                                 //挂起生产者
                                 full.await();
-
                             }
 
                         queue.add(temp);
                         System.out.println("生产者线程："+Thread.currentThread().getName()+"写入数据:"+temp+",当前队列数量:"+queue.size());
+                            //通知消费者消费
+                            empty.signal();
                         Thread.sleep(100);
 
                         } catch (InterruptedException e) {
@@ -69,15 +67,16 @@ public class PCByCondition {
                 lock.lock();
                 try {
                     if(queue.size()==0){
-                        //通知生产者继续生产
-                        full.signalAll();
                         //队列为空等待挂起
+                        System.out.println("消费者线程："+Thread.currentThread().getName()+"被挂起，当前队列数量:"+queue.size());
                         empty.await();
                     }else {
                         //消费数据
                         Integer value = queue.get(0);
                         queue.remove(0);
                         System.out.println("消费者线程："+Thread.currentThread().getName()+",消费了数据:"+value+",当前队列数量:"+queue.size());
+                        //通知生产者继续生产
+                        full.signal();
                         Thread.sleep(1000);
 
                     }
@@ -99,12 +98,18 @@ public class PCByCondition {
         Producer p2 = pcByCondition.new Producer();
         Consumer c1 = pcByCondition.new Consumer();
         Consumer c2 = pcByCondition.new Consumer();
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4,4,10, TimeUnit.SECONDS, new ArrayBlockingQueue(10));
-        threadPoolExecutor.execute(p1);
-        threadPoolExecutor.execute(p2);
-        threadPoolExecutor.execute(c2);
+//        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4,4,10, TimeUnit.SECONDS, new ArrayBlockingQueue(10));
+//        threadPoolExecutor.execute(p1);
+//        threadPoolExecutor.execute(p2);
+//        threadPoolExecutor.execute(c2);
+//
+//        threadPoolExecutor.execute(c1);
 
-        threadPoolExecutor.execute(c1);
+        Thread thread1 = new Thread(p1);
+        Thread thread2 = new Thread(c1);
+        thread1.start();
+        thread2.start();
+
 
     }
 }

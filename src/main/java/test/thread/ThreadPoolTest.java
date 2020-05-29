@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -33,33 +34,41 @@ public class ThreadPoolTest {
         threadPoolTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
         threadPoolTaskExecutor.initialize();
         List<Future> futureList = new ArrayList<Future>();
-        int threadCount =100;
+        int threadCount =10;
         //线程计数器
         final CountDownLatch latch = new CountDownLatch(threadCount);
         ThreadLocal<Person> threadLocal = new ThreadLocal<Person>();
-        for(int i=0;i<threadCount;i++){
-            ThreadLocal<Integer> stringThreadLocal = new ThreadLocal<>();
-            stringThreadLocal.set(i);
-            threadPoolTaskExecutor.execute(new TestThread(i,latch));
-            int ret = stringThreadLocal.get();
+//        for(int i=0;i<threadCount;i++){
+//            ThreadLocal<Integer> stringThreadLocal = new ThreadLocal<>();
+//            stringThreadLocal.set(i);
+//            threadPoolTaskExecutor.execute(new TestThread(i,latch));
+//            int ret = stringThreadLocal.get();
 //            futureList.add(threadPoolTaskExecutor.submit(new ThreadCall(i)));
-        }
-        //等待线程执行完毕
+//        }
+        ThreadCall threadCall = new ThreadCall(1);
+        Future future = threadPoolTaskExecutor.submit(threadCall);
         try {
-            latch.await();
-            System.out.println("累加结果："+total);
-        } catch (InterruptedException e) {
+            String result = future.get().toString();
+            System.out.println("线程返回结果为："+result);
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
+//        //等待线程执行完毕
 //        try {
-//            for(Future future:futureList){
-//                System.out.println(future.get().toString());
-//            }
+//            latch.await();
+//            System.out.println("累加结果："+total);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
 //        }
+        try {
+            for(Future future1:futureList){
+                System.out.println(future.get().toString());
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -116,7 +125,7 @@ public class ThreadPoolTest {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("有返回值的线程："+Thread.currentThread().getName()+":start");
+//            System.out.println("有返回值的线程："+Thread.currentThread().getName()+":start");
 
             return id;
         }
