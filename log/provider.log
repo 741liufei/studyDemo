@@ -1,0 +1,2 @@
+ INFO 06-12 14:01:48(?:?): using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+ INFO 06-12 15:11:21(?:?): using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
